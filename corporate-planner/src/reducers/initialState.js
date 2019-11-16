@@ -1,3 +1,6 @@
 export const initialState = {
-  testState: []
+  testStateArr: [],
+  testStateObj: {},
+  testStateStr: "",
+  testStateNull: null
 };
