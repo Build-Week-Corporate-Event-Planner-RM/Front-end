@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { applyMiddleware, createStore } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import reducer from "../src/reducers/";
+import reducer from "../src/reducers/reducers";
 
 import App from "./App";
 
