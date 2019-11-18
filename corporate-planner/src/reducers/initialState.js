@@ -1,6 +1,7 @@
 export const initialState = {
-  testStateArr: [],
-  testStateObj: {},
-  testStateStr: "",
-  testStateNull: null
+  events: [],
+  deleting: false,
+  posting: false,
+  editing: false,
+  error: ""
 };
