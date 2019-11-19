@@ -22,7 +22,7 @@ const AddEvent = () => {
   };
   return (
     <>
-      <NavBar />
+      {/* <NavBar /> */}
       <div className="add">
         <div className="add-form">
           <h3>Add New Event:</h3>

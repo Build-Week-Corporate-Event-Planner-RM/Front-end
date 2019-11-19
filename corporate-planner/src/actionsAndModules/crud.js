@@ -54,7 +54,7 @@ export const submitNewEvent = event => dispatch => {
   dispatch({ type: POSTING });
 
   authAxios()
-    .post(`http://localhost:8000/api/events`, event)
+    .post(`https://corporate-event-planner-api.herokuapp.com/api/events`, event)
     .then(res => dispatch({ type: POSTED, payload: res.data }))
     .catch(err => dispatch({ type: POST_FAILED, payload: err }))
     .finally(alert("New event posted"));
@@ -78,14 +78,13 @@ export const deleteEvent = event => dispatch => {
 };
 
 export const submitEditEvent = (id, event) => dispatch => {
-  console.log("put id", id);
-  console.log("put event", event);
   dispatch({ type: EDITING });
+
+  delete event.completed;
 
   authAxios()
     .put(`http://localhost:8000/api/events/${id}`, event)
     .then(res => {
-      console.log("put response", res.data);
       dispatch({ type: EDITED, payload: res.data });
     })
     .catch(err => {

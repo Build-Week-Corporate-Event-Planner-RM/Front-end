@@ -52,7 +52,7 @@ const Registration = ({ values, errors, touched, status }) => {
 
   return (
     <div>
-      <NavBar />
+      {/* <NavBar /> */}
 
       <Card>
         <FormField>
@@ -103,8 +103,8 @@ const RegistrationOnboard = withFormik({
       email: email || "",
       password: password || "",
       company: company || "",
-      role: role || "",
-      termsOfService: termsOfService || false
+      role: role || ""
+      //   termsOfService: termsOfService || false
     };
   },
   validationSchema: Yup.object().shape({
@@ -115,7 +115,10 @@ const RegistrationOnboard = withFormik({
   handleSubmit(values, { setStatus }) {
     // values is our object with all our data on it
     axios
-      .post(`http://localhost:8000/api/auth/login`, values)
+      .post(
+        `https://corporate-event-planner-api.herokuapp.com/api/auth/login`,
+        values
+      )
       .then(res => {
         setStatus(res.data);
         console.log(res);
