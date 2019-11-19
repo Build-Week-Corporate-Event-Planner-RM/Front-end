@@ -17,7 +17,7 @@ import {
 
 //credentials:
 
-//michaelcurry
+//Mike
 //pass
 export const registerAcct = user => {
   axios

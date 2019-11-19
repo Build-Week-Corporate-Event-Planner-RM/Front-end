@@ -5,7 +5,6 @@ import {
   getEvents,
   deleteEvent
 } from "../actionsAndModules/crud";
-import EditEvent from "./EditEvent";
 
 const Events = () => {
   const events = useSelector(state => state.events);
@@ -28,99 +27,117 @@ const Events = () => {
     <>
       <h3>Events</h3>
       <button onClick={() => dispatch(getEvents())}>Get</button>
-      <ul>
-        {events.map(ev => (
-          <li key={ev.name}>
-            <button
-              onClick={e => {
-                e.preventDefault();
-                editEvent(ev);
-              }}
-            >
-              Edit
-            </button>
-            <span>
+      <div className="events">
+        <ul>
+          {events.map(ev => (
+            <div className="event-card" key={ev.name}>
+              <li>
+                <span>
+                  <h3>
+                    <strong>Event name: </strong>
+                    {ev.name}
+                  </h3>
+                  <p>{ev.description}</p>
+                  <p>
+                    <strong>Date: </strong>
+                    {ev.datetime}
+                  </p>
+                  <p>
+                    <strong>Budget: </strong>${ev.budget}
+                  </p>
+                </span>
+                <p>
+                  <strong>Date and time: </strong>
+                  {ev.datetime}
+                </p>
+              </li>
+              <button
+                onClick={e => {
+                  e.preventDefault();
+                  editEvent(ev);
+                }}
+              >
+                Edit
+              </button>
               <button
                 onClick={e => {
                   //   e.preventDefault();
                   dispatch(deleteEvent(ev));
                 }}
               >
-                X
+                Delete
               </button>
-              <h1>Event name: {ev.name}</h1>
-              <p>{ev.description}</p>
-              <p>Date: {ev.datetime}</p>
-              <p>Budget: ${ev.budget}</p>
-            </span>
-            <p>{ev.datetime}</p>
-          </li>
-        ))}
-      </ul>
+            </div>
+          ))}
+        </ul>
 
-      {editing && (
-        <div className="edit">
-          <div className="edit-form">
-            <form>
-              <h1>Edit Event</h1>
-              <label>
-                Name:
-                <input
+        {editing && (
+          <div className="edit">
+            <div className="edit-form">
+              <form>
+                <h1>Edit Event</h1>
+                <label>
+                  Name:
+                  <input
+                    onChange={e =>
+                      setEventToEdit({ ...eventToEdit, name: e.target.value })
+                    }
+                    value={eventToEdit.name}
+                  />
+                </label>
+                <label>
+                  Description:
+                  <input
+                    onChange={e =>
+                      setEventToEdit({
+                        ...eventToEdit,
+                        description: e.target.value
+                      })
+                    }
+                    value={eventToEdit.description}
+                  />
+                </label>
+                <label>
+                  Date and time:
+                  <input
+                    onChange={e =>
+                      setEventToEdit({
+                        ...eventToEdit,
+                        datetime: e.target.value
+                      })
+                    }
+                    value={eventToEdit.datetime}
+                  />
+                </label>
+                <label>
+                  Budget:
+                  <input
+                    onChange={e =>
+                      setEventToEdit({ ...eventToEdit, budget: e.target.value })
+                    }
+                    value={eventToEdit.budget}
+                  />
+                </label>
+                <p
                   onChange={e =>
-                    setEventToEdit({ ...eventToEdit, name: e.target.value })
+                    setEventToEdit({ ...eventToEdit, user_id: e.target.value })
                   }
-                  value={eventToEdit.name}
+                  value={eventToEdit.user_id}
                 />
-              </label>
-              <label>
-                Description:
-                <input
-                  onChange={e =>
-                    setEventToEdit({
-                      ...eventToEdit,
-                      description: e.target.value
-                    })
-                  }
-                  value={eventToEdit.description}
-                />
-              </label>
-              <label>
-                Date and time:
-                <input
-                  onChange={e =>
-                    setEventToEdit({ ...eventToEdit, datetime: e.target.value })
-                  }
-                  value={eventToEdit.datetime}
-                />
-              </label>
-              <label>
-                Budget:
-                <input
-                  onChange={e =>
-                    setEventToEdit({ ...eventToEdit, budget: e.target.value })
-                  }
-                  value={eventToEdit.budget}
-                />
-              </label>
-              <p
-                onChange={e =>
-                  setEventToEdit({ ...eventToEdit, user_id: e.target.value })
-                }
-                value={eventToEdit.user_id}
-              />
-              <button
-                onClick={e => {
-                  e.preventDefault();
-                  dispatch(submitEditEvent(eventToEdit.id, eventToEdit));
-                }}
-              >
-                Save
-              </button>
-              <button onClick={() => setEditing(false)}>Cancel</button>
-            </form>
+                <button
+                  onClick={e => {
+                    e.preventDefault();
+                    dispatch(submitEditEvent(eventToEdit.id, eventToEdit));
+                  }}
+                >
+                  Save
+                </button>
+                <button onClick={() => setEditing(false)}>Cancel</button>
+              </form>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 };

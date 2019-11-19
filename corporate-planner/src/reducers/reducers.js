@@ -88,7 +88,6 @@ const reducer = (state = initialState, action) => {
       };
     }
     case EDITED: {
-      console.log("payload", action.payload);
       return {
         ...state,
         editing: false,

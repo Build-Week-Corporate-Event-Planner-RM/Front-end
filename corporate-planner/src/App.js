@@ -8,6 +8,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import TestLogin from "./components/TestLogin";
 import Events from "./components/Events";
 import Register from "./components/Register";
+import Login from "./components/Login";
 
 function App() {
   return (
@@ -15,10 +16,22 @@ function App() {
       <NavBar />
       <Link to="/Login">Login</Link>
       <br />
-      <Link to="/protected">Account</Link>
-      {/* <Route path="/Registration" component={Registration} /> */}
-      <Route path="/Registration" component={Register} />
-      <Route path="/Login" component={TestLogin} />
+      <br />
+      <Link to="/protected">Account (private route)*</Link>
+      <br />
+      <Link to="/testLogin">Test Login*</Link>
+      <br />
+      <Link to="/testRegister">Test Register*</Link>
+      <br />
+      <Link to="/testAddEvent">Test Add Event*</Link>
+      <br />
+
+      <Route path="/testLogin" component={TestLogin} />
+      <Route path="/testRegister" component={Register} />
+      <Route path="/testAddEvent" component={AddEvent} />
+
+      <Route path="/Registration" component={Registration} />
+      <Route path="/Login" component={Login} />
       <Route path="/addevent" component={AddEvent} />
       <Switch>
         <PrivateRoute path="/protected">
