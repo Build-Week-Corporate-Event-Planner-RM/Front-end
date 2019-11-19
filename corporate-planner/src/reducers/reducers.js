@@ -88,11 +88,12 @@ const reducer = (state = initialState, action) => {
       };
     }
     case EDITED: {
+      console.log("payload", action.payload);
       return {
         ...state,
         editing: false,
         events: [
-          state.events.filter(event => event.id !== action.payload.id),
+          ...state.events.filter(event => event.id !== action.payload.id),
           action.payload
         ]
       };
