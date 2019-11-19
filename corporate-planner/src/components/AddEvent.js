@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { submitNewEvent } from "../actionsAndModules/crud";
-import NavBar from "./NavBar";
 
 const AddEvent = () => {
   const dispatch = useDispatch();
@@ -22,7 +21,6 @@ const AddEvent = () => {
   };
   return (
     <>
-      {/* <NavBar /> */}
       <div className="add">
         <div className="add-form">
           <h3>Add New Event:</h3>

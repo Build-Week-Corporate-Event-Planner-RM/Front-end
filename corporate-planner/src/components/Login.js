@@ -5,8 +5,6 @@ import axios from "axios";
 import styled from "styled-components";
 // import Registration from "../components/Registration";
 import { Link } from "react-router-dom";
-// import { login } from "../actionsAndModules/crud";
-import NavBar from "./NavBar";
 
 const Card = styled.div`
   background-color: white;
@@ -38,8 +36,6 @@ const Login = ({ values, errors, touched, status }) => {
 
   return (
     <div>
-      {/* <NavBar /> */}
-
       <Card>
         <FormField>
           <h2>Welcome Back 👋</h2>
@@ -56,8 +52,8 @@ const Login = ({ values, errors, touched, status }) => {
           <p>
             New here?<Link to="/Registration">Sign Up</Link>
           </p>
+          <button type="submit">Submit!</button>
         </FormField>
-        <button type="submit">Submit!</button>
       </Card>
     </div>
   );
