@@ -1,5 +1,9 @@
 import { initialState } from "./initialState";
 
+export const GETTING_EVENTS = "GETTING_EVENTS";
+export const GOT_EVENTS = "GOT_EVENTS";
+export const GET_EVENTS_FAILED = "GET_EVENTS_FAILED";
+
 export const POSTING = "POSTING";
 export const POSTED = "POSTED";
 export const POST_FAILED = "POST_FAILED";
@@ -14,23 +18,23 @@ export const EDIT_FAILED = "EDIT_FAILED";
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case DELETING: {
+    case GETTING_EVENTS: {
       return {
         ...state,
-        deleting: true
+        gettingEvents: true
       };
     }
-    case DELETED: {
+    case GOT_EVENTS: {
       return {
         ...state,
         events: action.payload,
-        deleting: false
+        gettingEvents: false
       };
     }
-    case DELETE_FAILED: {
+    case GET_EVENTS_FAILED: {
       return {
         ...state,
-        deleting: false,
+        gettingEvents: false,
         error: action.payload
       };
     }
@@ -44,7 +48,7 @@ const reducer = (state = initialState, action) => {
     case POSTED: {
       return {
         ...state,
-        events: action.payload,
+        events: [...state.events, action.payload],
         posting: false
       };
     }
@@ -52,6 +56,27 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         posting: false,
+        error: action.payload
+      };
+    }
+
+    case DELETING: {
+      return {
+        ...state,
+        deleting: true
+      };
+    }
+    case DELETED: {
+      return {
+        ...state,
+        deleting: false
+        // events: state.events.filter(event => event.id !== action.payload.id)
+      };
+    }
+    case DELETE_FAILED: {
+      return {
+        ...state,
+        deleting: false,
         error: action.payload
       };
     }
@@ -66,7 +91,10 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         editing: false,
-        events: action.payload
+        events: [
+          state.events.filter(event => event.id !== action.payload.id),
+          action.payload
+        ]
       };
     }
     case EDIT_FAILED: {

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { withFormik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-import axios from 'axios';
-import styled from 'styled-components';
-import Login from '../components/Login';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { withFormik, Form, Field } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
+import styled from "styled-components";
+import Login from "../components/Login";
+import { Link } from "react-router-dom";
 
 import {
   Collapse,
@@ -17,7 +17,9 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from 'reactstrap';
+  DropdownItem
+} from "reactstrap";
+import NavBar from "./NavBar";
 
 const Card = styled.div`
   background-color: white;
@@ -48,73 +50,61 @@ const Registration = ({ values, errors, touched, status }) => {
     status && setUsers(users => [...users, status]);
   }, [status]);
 
-
-
   return (
     <div>
-    <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">Corporate Event Planner</NavbarBrand>
-        <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className="ml-auto" navbar>
-            <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">Log In/Register</NavLink>
-            </NavItem>
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Options
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>
-                  Option 1
-                </DropdownItem>
-                <DropdownItem>
-                  Option 2
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>
-                  Reset
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
-          </Nav>
-        </Collapse>
-      </Navbar>
+      <NavBar />
 
       <Card>
         <FormField>
           <h2>Hello! 👋</h2>
 
-            <Field type="text" name="name" placeholder="Full Name" />
-            {touched.name && errors.name && <p className="errors">{errors.name}</p>}
+          <Field type="text" name="name" placeholder="Full Name" />
+          {touched.name && errors.name && (
+            <p className="errors">{errors.name}</p>
+          )}
 
-            <Field type="text" name="email" placeholder="Work e-mail" />
-            {touched.name && errors.name && <p className="errors">{errors.email}</p>}
+          <Field type="text" name="email" placeholder="Work e-mail" />
+          {touched.name && errors.name && (
+            <p className="errors">{errors.email}</p>
+          )}
 
-            <Field type="password" name="password" placeholder="Password" />
-            {touched.password && errors.password && <p className="errors">{errors.password}</p>}
+          <Field type="password" name="password" placeholder="Password" />
+          {touched.password && errors.password && (
+            <p className="errors">{errors.password}</p>
+          )}
 
+          <Field type="text" name="company" placeholder="Company" />
 
-            <label className="checkbox-container">
-              Terms Of Service
-              <Field type="checkbox" name="termsOfService" checked={values.termsOfService}/>
-            </label>
+          <Field type="text" name="role" placeholder="Role" />
 
-            <button>Submit!</button>
+          <label className="checkbox-container">
+            Terms Of Service
+            <Field
+              type="checkbox"
+              name="termsOfService"
+              checked={values.termsOfService}
+            />
+          </label>
 
-          <p>Already have an account?<Link to="/Login">Log In</Link></p>
+          <button>Submit!</button>
+
+          <p>
+            Already have an account?<Link to="/Login">Log In</Link>
+          </p>
         </FormField>
       </Card>
-  </div>
+    </div>
   );
 };
 const RegistrationOnboard = withFormik({
-  mapPropsToValues({ name, email, password, termsOfService }) {
+  mapPropsToValues({ name, email, password, company, role, termsOfService }) {
     return {
       name: name || "",
       email: email || "",
       password: password || "",
-      termsOfService: termsOfService || false,
+      company: company || "",
+      role: role || "",
+      termsOfService: termsOfService || false
     };
   },
   validationSchema: Yup.object().shape({
@@ -125,7 +115,7 @@ const RegistrationOnboard = withFormik({
   handleSubmit(values, { setStatus }) {
     // values is our object with all our data on it
     axios
-      .post("https://reqres.in/api/users/", values)
+      .post(`http://localhost:8000/api/auth/login`, values)
       .then(res => {
         setStatus(res.data);
         console.log(res);
@@ -133,6 +123,5 @@ const RegistrationOnboard = withFormik({
       .catch(err => console.log(err.response));
   }
 })(Registration);
-
 
 export default RegistrationOnboard;

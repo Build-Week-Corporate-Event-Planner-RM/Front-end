@@ -1,5 +1,9 @@
+import axios from "axios";
 import { authAxios } from "./authAxios";
 import {
+  GETTING_EVENTS,
+  GOT_EVENTS,
+  GET_EVENTS_FAILED,
   POSTING,
   POSTED,
   POST_FAILED,
@@ -35,30 +39,56 @@ export const login = user => {
     .catch(err => console.log(err));
 };
 
+export const getEvents = () => dispatch => {
+  dispatch({ type: GETTING_EVENTS });
+
+  authAxios()
+    .get(`http://localhost:8000/api/events`)
+    .then(res => {
+      dispatch({ type: GOT_EVENTS, payload: res.data });
+    })
+    .catch(err => dispatch({ type: GET_EVENTS_FAILED, payload: err }));
+};
+
 export const submitNewEvent = event => dispatch => {
   dispatch({ type: POSTING });
 
   authAxios()
-    .post(``, event)
-    .then(Alert("New event posted"))
+    .post(`http://localhost:8000/api/events`, event)
+    .then(res => dispatch({ type: POSTED, payload: res.data }))
     .catch(err => dispatch({ type: POST_FAILED, payload: err }))
-    .finally(res => dispatch({ type: POSTED, payload: res.data }));
+    .finally(alert("New event posted"));
 };
 
-export const deleteEvent = id => dispatch => {
+export const deleteEvent = event => dispatch => {
   dispatch({ type: DELETING });
 
   authAxios()
-    .delete(``) //dynamic id
-    .then(res => dispatch({ type: DELETED, payload: res.data }))
+    .delete(`http://localhost:8000/api/events/${event.id}`)
+    .then(
+      authAxios()
+        .get(`http://localhost:8000/api/events`)
+        .then(res => {
+          console.log(res);
+          dispatch({ type: DELETED });
+          dispatch({ type: GOT_EVENTS, payload: res.data });
+        })
+    )
     .catch(err => dispatch({ type: DELETE_FAILED, payload: err }));
 };
 
-export const editEvent = (id, event) => dispatch => {
-  dispatch({ EDITING });
+export const submitEditEvent = (id, event) => dispatch => {
+  console.log("put id", id);
+  console.log("put event", event);
+  dispatch({ type: EDITING });
 
   authAxios()
-    .put(``, event) //dynamic id
-    .then(res => dispatch({ type: EDITED, payload: res.data }))
-    .catch(err => dispatch({ type: EDIT_FAILED, payload: err }));
+    .put(`http://localhost:8000/api/events/${id}`, event)
+    .then(res => {
+      console.log("put response", res.data);
+      dispatch({ type: EDITED, payload: res.data });
+    })
+    .catch(err => {
+      dispatch({ type: EDIT_FAILED, payload: err });
+    });
 };
