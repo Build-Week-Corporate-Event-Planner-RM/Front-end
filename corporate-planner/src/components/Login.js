@@ -3,10 +3,8 @@ import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import styled from "styled-components";
-import Registration from "../components/Registration";
+// import Registration from "../components/Registration";
 import { Link } from "react-router-dom";
-import { login } from "../actionsAndModules/crud";
-import NavBar from "./NavBar";
 
 const Card = styled.div`
   background-color: white;
@@ -38,8 +36,6 @@ const Login = ({ values, errors, touched, status }) => {
 
   return (
     <div>
-      <NavBar />
-
       <Card>
         <FormField>
           <h2>Welcome Back 👋</h2>
@@ -56,8 +52,8 @@ const Login = ({ values, errors, touched, status }) => {
           <p>
             New here?<Link to="/Registration">Sign Up</Link>
           </p>
+          <button type="submit">Submit!</button>
         </FormField>
-        <button type="submit">Submit!</button>
       </Card>
     </div>
   );
@@ -80,12 +76,19 @@ const LoginOnboard = withFormik({
     // values is our object with all our data on it
     console.log("clicked");
     axios
-      .post("https://reqres.in/api/users/", values)
+      .post(`http://localhost:8000/api/auth/login`, values)
       .then(res => {
-        setStatus(res.data);
-        console.log(res);
+        alert(res.data.message);
+        sessionStorage.setItem("token", res.data.token);
       })
-      .catch(err => console.log(err.response));
+      .catch(err => console.log(err));
+    // axios
+    //   .post("https://reqres.in/api/users/", values)
+    //   .then(res => {
+    //     setStatus(res.data);
+    //     console.log(res);
+    //   })
+    //   .catch(err => console.log(err.response));
   }
 })(Login);
 
