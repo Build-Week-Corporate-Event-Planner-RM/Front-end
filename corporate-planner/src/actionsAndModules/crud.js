@@ -21,18 +21,25 @@ import {
 //pass
 export const registerAcct = user => {
   axios
-    .post(`http://localhost:8000/api/auth/register`, user)
+    .post(
+      `https://corporate-event-planner-api.herokuapp.com/api/auth/register`,
+      user
+    )
     .then(res => {
       console.log(res.data);
-      sessionStorage.setItem("token", res.data);
+      sessionStorage.setItem("token", res.data.token);
     })
     .catch(err => console.log(err));
 };
 
 export const login = user => {
   axios
-    .post(`http://localhost:8000/api/auth/login`, user)
+    .post(
+      `https://corporate-event-planner-api.herokuapp.com/api/auth/login`,
+      user
+    )
     .then(res => {
+      console.log(res);
       sessionStorage.setItem("token", res.data.token);
     })
     .catch(err => console.log(err));
@@ -42,7 +49,7 @@ export const getEvents = () => dispatch => {
   dispatch({ type: GETTING_EVENTS });
 
   authAxios()
-    .get(`http://localhost:8000/api/events`)
+    .get(`https://corporate-event-planner-api.herokuapp.com/api/events`)
     .then(res => {
       dispatch({ type: GOT_EVENTS, payload: res.data });
     })
@@ -63,10 +70,12 @@ export const deleteEvent = event => dispatch => {
   dispatch({ type: DELETING });
 
   authAxios()
-    .delete(`http://localhost:8000/api/events/${event.id}`)
+    .delete(
+      `https://corporate-event-planner-api.herokuapp.com/api/events/${event.id}`
+    )
     .then(
       authAxios()
-        .get(`http://localhost:8000/api/events`)
+        .get(`https://corporate-event-planner-api.herokuapp.com/api/events`)
         .then(res => {
           console.log(res);
           dispatch({ type: DELETED });

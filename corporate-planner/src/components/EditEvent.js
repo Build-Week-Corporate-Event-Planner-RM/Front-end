@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { submitEditEvent, deleteEvent } from "../actionsAndModules/crud";
 import { useDispatch, useSelector } from "react-redux";
 
-const EditEvent = () => {
+const EditEvent = props => {
   const dispatch = useDispatch();
 
   const [editing, setEditing] = useState(false);
@@ -21,9 +21,9 @@ const EditEvent = () => {
           <h3>Edit Event</h3>
           <input
             onChange={e =>
-              setEventToEdit({ ...eventToEdit, name: e.target.value })
+              setEventToEdit({ ...props.eventToEdit, name: e.target.value })
             }
-            value={eventToEdit.name}
+            value={props.eventToEdit.name}
             placeholder="Event name"
           />
           <br />
@@ -32,7 +32,7 @@ const EditEvent = () => {
             onChange={e =>
               setEventToEdit({ ...eventToEdit, description: e.target.value })
             }
-            value={eventToEdit.description}
+            value={props.eventToEdit.description}
             placeholder="Description"
           />
           <br />
@@ -41,7 +41,7 @@ const EditEvent = () => {
             onChange={e =>
               setEventToEdit({ ...eventToEdit, datetime: e.target.value })
             }
-            value={eventToEdit.datetime}
+            value={props.eventToEdit.datetime}
             placeholder="Date and time"
           />
           <br />
@@ -50,14 +50,14 @@ const EditEvent = () => {
             onChange={e =>
               setEventToEdit({ ...eventToEdit, budget: e.target.value })
             }
-            value={eventToEdit.budget}
+            value={props.eventToEdit.budget}
             placeholder="Budget"
           />
           <p
             onChange={e =>
               setEventToEdit({ ...eventToEdit, user_id: e.target.value })
             }
-            value={eventToEdit.user_id}
+            value={props.eventToEdit.user_id}
           />
           <button
             onClick={e => {

@@ -95,14 +95,13 @@ const Registration = ({ values, errors, touched, status }) => {
   );
 };
 const RegistrationOnboard = withFormik({
-  mapPropsToValues({ name, email, password, company, role, termsOfService }) {
+  mapPropsToValues({ name, email, password, company, role }) {
     return {
       name: name || "",
       email: email || "",
       password: password || "",
       company: company || "",
       role: role || ""
-      //   termsOfService: termsOfService || false
     };
   },
   validationSchema: Yup.object().shape({
@@ -112,6 +111,7 @@ const RegistrationOnboard = withFormik({
   }),
   handleSubmit(values, { setStatus }) {
     // values is our object with all our data on it
+    console.log("submit");
     axios
       .post(
         `https://corporate-event-planner-api.herokuapp.com/api/auth/login`,

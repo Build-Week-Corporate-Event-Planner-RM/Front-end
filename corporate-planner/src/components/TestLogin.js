@@ -13,7 +13,7 @@ const TestLogin = () => {
   };
 
   const submitLogin = e => {
-    // e.preventDefault();
+    e.preventDefault();
     login(user);
   };
 
