@@ -11,7 +11,7 @@ const EditEvent = () => {
     name: "",
     description: "",
     datetime: "",
-    budget: undefined
+    budget: 0
   });
 
   return (

@@ -83,7 +83,10 @@ export const submitEditEvent = (id, event) => dispatch => {
   delete event.completed;
 
   authAxios()
-    .put(`http://localhost:8000/api/events/${id}`, event)
+    .put(
+      `https://corporate-event-planner-api.herokuapp.com/api/events/${id}`,
+      event
+    )
     .then(res => {
       dispatch({ type: EDITED, payload: res.data });
     })
