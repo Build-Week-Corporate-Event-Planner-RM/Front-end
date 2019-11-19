@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "name": "corporate-planner",
+  "builds": [
+    {
+      "src": "corporate-planner/package.json",
+      "use": "@now/static-build",
+      "config": { "distDir": "build" }
+    }
+  ],
+  "routes": [{ "src": "/(.*)", "dest": "corporate-planner/$1" }]
+}
