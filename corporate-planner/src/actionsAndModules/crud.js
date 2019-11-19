@@ -33,7 +33,6 @@ export const login = user => {
   axios
     .post(`http://localhost:8000/api/auth/login`, user)
     .then(res => {
-      alert(res.data.message);
       sessionStorage.setItem("token", res.data.token);
     })
     .catch(err => console.log(err));

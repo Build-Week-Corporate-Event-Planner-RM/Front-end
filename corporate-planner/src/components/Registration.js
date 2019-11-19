@@ -52,8 +52,6 @@ const Registration = ({ values, errors, touched, status }) => {
 
   return (
     <div>
-      {/* <NavBar /> */}
-
       <Card>
         <FormField>
           <h2>Hello! 👋</h2>
