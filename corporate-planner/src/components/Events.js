@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   submitEditEvent,
   getEvents,
-  deleteEvent
+  deleteEvent,
+  getTodosByEvent
 } from "../actionsAndModules/crud";
+import { GOT_EVENTS } from "../reducers/reducers";
 
 const Events = () => {
   const events = useSelector(state => state.events);
+  const todos = useSelector(state => state.eventTodos);
   const dispatch = useDispatch();
   const [editing, setEditing] = useState(false);
+  const [showTodos, setShowTodos] = useState(false);
   const [eventToEdit, setEventToEdit] = useState({
     user_id: undefined,
     name: "",
@@ -23,14 +27,26 @@ const Events = () => {
     setEventToEdit(event);
   };
 
+  const showEventTodos = id => {
+    setShowTodos(!showTodos);
+    dispatch(getTodosByEvent(id));
+  };
+
+  const getMine = () => {
+    const seshId = JSON.parse(sessionStorage.getItem("id"));
+    const mine = events.filter(event => event.user_id === seshId);
+    dispatch({ type: GOT_EVENTS, payload: mine });
+  };
+
   return (
     <>
       <h3>Events</h3>
-      <button onClick={() => dispatch(getEvents())}>Get</button>
+      <button onClick={() => dispatch(getEvents())}>Get All</button>
+      <button onClick={getMine}>Get Mine</button>
       <div className="events">
         <ul>
           {events.map(ev => (
-            <div className="event-card" key={ev.name}>
+            <div className="event-card" key={`${ev.name}${ev.id}`}>
               <li>
                 <span>
                   <h3>
@@ -51,6 +67,8 @@ const Events = () => {
                   {ev.datetime}
                 </p>
               </li>
+              {todos.length > 0 && <h1>test</h1>}
+              <button onClick={() => showEventTodos(ev.id)}>Todos</button>
               <button
                 onClick={e => {
                   e.preventDefault();
@@ -128,6 +146,7 @@ const Events = () => {
                   onClick={e => {
                     e.preventDefault();
                     dispatch(submitEditEvent(eventToEdit.id, eventToEdit));
+                    setEditing(false);
                   }}
                 >
                   Save

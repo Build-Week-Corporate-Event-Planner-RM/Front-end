@@ -28,7 +28,6 @@ const FormField = styled.div`
 
 const Login = ({ values, errors, touched, status }) => {
   const [users, setUsers] = useState([]);
-  console.log(" : Login -> users", users);
 
   useEffect(() => {
     status && setUsers(users => [...users, status]);
@@ -80,6 +79,7 @@ const LoginOnboard = withFormik({
       .then(res => {
         alert(res.data.message);
         sessionStorage.setItem("token", res.data.token);
+        sessionStorage.setItem("id", res.data.id);
       })
       .catch(err => console.log(err));
     // axios
