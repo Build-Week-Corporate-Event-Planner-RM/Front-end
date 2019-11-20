@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   submitEditEvent,
   getEvents,
-  deleteEvent
+  deleteEvent,
+  getTodosByEvent
 } from "../actionsAndModules/crud";
 import { GOT_EVENTS } from "../reducers/reducers";
 
@@ -11,6 +12,7 @@ const Events = () => {
   const events = useSelector(state => state.events);
   const dispatch = useDispatch();
   const [editing, setEditing] = useState(false);
+  const [showTodos, setShowTodos] = useState(false);
   const [eventToEdit, setEventToEdit] = useState({
     user_id: undefined,
     name: "",
@@ -22,6 +24,11 @@ const Events = () => {
   const editEvent = event => {
     setEditing(true);
     setEventToEdit(event);
+  };
+
+  const showEventTodos = id => {
+    setShowTodos(true);
+    dispatch(getTodosByEvent(id));
   };
 
   const getMine = () => {
@@ -59,6 +66,7 @@ const Events = () => {
                   {ev.datetime}
                 </p>
               </li>
+              <button onClick={() => showEventTodos(ev.id)}>Todos</button>
               <button
                 onClick={e => {
                   e.preventDefault();

@@ -81,7 +81,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         gettingTodos: false,
-        todos: action.payload
+        eventTodos: action.payload
       };
     }
     case GET_TODOS_FAILED: {

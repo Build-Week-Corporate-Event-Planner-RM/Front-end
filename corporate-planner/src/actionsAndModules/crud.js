@@ -33,10 +33,9 @@ import {
   DELETE_VENDOR_FAILED
 } from "../reducers/reducers";
 
-//credentials:
-
-//Mike
-//pass
+//
+// login and register
+//
 export const registerAcct = user => {
   axios
     .post(
@@ -65,6 +64,9 @@ export const login = user => {
     .catch(err => console.log(err));
 };
 
+//
+//events
+//
 export const getEvents = () => dispatch => {
   dispatch({ type: GETTING_EVENTS });
 
@@ -127,6 +129,9 @@ export const submitEditEvent = (id, event) => dispatch => {
     });
 };
 
+//
+//vendors
+//
 export const getVendors = () => dispatch => {
   dispatch({ type: GETTING_VENDORS });
 
@@ -139,6 +144,19 @@ export const getVendors = () => dispatch => {
       dispatch({ type: GOT_VENDORS, payload: res.data });
     })
     .catch(err => dispatch({ type: GET_VENDORS_FAILED, payload: err }));
+};
+
+export const getTodosByEvent = id => dispatch => {
+  dispatch({ type: GETTING_TODOS });
+
+  authAxios()
+    .get(
+      `https://corporate-event-planner-api.herokuapp.com/api/events/${id}/todos`
+    )
+    .then(res => {
+      dispatch({ type: GOT_TODOS, payload: res.data });
+    })
+    .catch(err => dispatch({ type: GET_TODOS_FAILED, payload: err }));
 };
 
 export const submitEditVendor = (id, vendor) => dispatch => {
@@ -187,3 +205,7 @@ export const deleteVendor = vendor => dispatch => {
     })
     .catch(err => dispatch({ type: DELETE_VENDOR_FAILED, payload: err }));
 };
+
+//
+//todos
+//

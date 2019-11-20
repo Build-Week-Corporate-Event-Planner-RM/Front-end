@@ -1,7 +1,7 @@
 export const initialState = {
   events: [],
   vendors: [],
-  todos: [],
+  eventTodos: [],
 
   gettingEvents: false,
   gettingVendors: false,
