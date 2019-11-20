@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { withFormik, Form, Field } from "formik";
-import * as Yup from "yup";
-import axios from "axios";
-import styled from "styled-components";
-import Login from "../components/Login";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { withFormik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import axios from 'axios';
+import styled from 'styled-components';
+import Login from '../components/Login';
+import { Link } from 'react-router-dom';
 
 import {
   Collapse,
@@ -17,9 +17,7 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
-} from "reactstrap";
-import NavBar from "./NavBar";
+  DropdownItem } from 'reactstrap';
 
 const Card = styled.div`
   background-color: white;
@@ -33,13 +31,18 @@ const Card = styled.div`
   margin-top: 10%;
 `;
 
-const FormField = styled.div`
-  background-color: white;
+const FormField = styled(Form)`
   display: flex;
   flex-direction: column;
   text-align: center;
-  margin-top: 15%;
+  margin-top: 10%;
 `;
+
+const FormField2 = styled(Field)`
+  margin-top: 1%
+  margin-bottom: 5%;
+`;
+
 
 const Registration = ({ values, errors, touched, status }) => {
   const [users, setUsers] = useState([]);
@@ -50,58 +53,45 @@ const Registration = ({ values, errors, touched, status }) => {
     status && setUsers(users => [...users, status]);
   }, [status]);
 
+
+
   return (
     <div>
+    <Navbar />
+
       <Card>
         <FormField>
           <h2>Hello! 👋</h2>
 
-          <Field type="text" name="name" placeholder="Full Name" />
-          {touched.name && errors.name && (
-            <p className="errors">{errors.name}</p>
-          )}
+            <FormField2 type="text" name="name" placeholder="Full Name" />
+            {touched.name && errors.name && <p className="errors">{errors.name}</p>}
 
-          <Field type="text" name="email" placeholder="Work e-mail" />
-          {touched.name && errors.name && (
-            <p className="errors">{errors.email}</p>
-          )}
+            <FormField2 type="text" name="email" placeholder="Work e-mail" />
+            {touched.email && errors.email && <p className="errors">{errors.email}</p>}
 
-          <Field type="password" name="password" placeholder="Password" />
-          {touched.password && errors.password && (
-            <p className="errors">{errors.password}</p>
-          )}
+            <FormField2 type="password" name="password" placeholder="Password" />
+            {touched.password && errors.password && <p className="errors">{errors.password}</p>}
 
-          <Field type="text" name="company" placeholder="Company" />
 
-          <Field type="text" name="role" placeholder="Role" />
+            <label className="checkbox-container">
+              Terms Of Service
+              <Field type="checkbox" name="termsOfService" checked={values.termsOfService}/>
+            </label>
 
-          <label className="checkbox-container">
-            Terms Of Service
-            <Field
-              type="checkbox"
-              name="termsOfService"
-              checked={values.termsOfService}
-            />
-          </label>
+            <button>Submit!</button>
 
-          <button>Submit!</button>
-
-          <p>
-            Already have an account?<Link to="/Login">Log In</Link>
-          </p>
+          <p>Already have an account?<Link to="/Login">Log In</Link></p>
         </FormField>
       </Card>
-    </div>
+  </div>
   );
 };
 const RegistrationOnboard = withFormik({
-  mapPropsToValues({ name, email, password, company, role }) {
+  mapPropsToValues({ name, email, password }) {
     return {
       name: name || "",
       email: email || "",
       password: password || "",
-      company: company || "",
-      role: role || ""
     };
   },
   validationSchema: Yup.object().shape({
@@ -111,12 +101,8 @@ const RegistrationOnboard = withFormik({
   }),
   handleSubmit(values, { setStatus }) {
     // values is our object with all our data on it
-    console.log("submit");
     axios
-      .post(
-        `https://corporate-event-planner-api.herokuapp.com/api/auth/login`,
-        values
-      )
+      .post("https://reqres.in/api/users/", values)
       .then(res => {
         setStatus(res.data);
         console.log(res);
@@ -124,5 +110,6 @@ const RegistrationOnboard = withFormik({
       .catch(err => console.log(err.response));
   }
 })(Registration);
+
 
 export default RegistrationOnboard;
