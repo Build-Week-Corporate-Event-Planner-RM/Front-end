@@ -24,7 +24,7 @@ function App() {
       <Link to="/Login">Login</Link>
       <br />
       <br />
-      <Link to="/protected">Account (private route)*</Link>
+      <Link to="/events">Events (private route)*</Link>
       <br />
       <Link to="/testLogin">Test Login*</Link>
       <br />
@@ -45,7 +45,7 @@ function App() {
       <Route path="/Registration" component={Registration} />
       <Route path="/Login" component={Login} />
       <Switch>
-        <PrivateRoute path="/protected">
+        <PrivateRoute path="/events">
           <Events />
         </PrivateRoute>
         <Route path="/Login" />

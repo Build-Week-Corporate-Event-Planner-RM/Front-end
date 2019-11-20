@@ -6,6 +6,20 @@ import styled from "styled-components";
 import Registration from "./Registration";
 import { Link } from "react-router-dom";
 
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from "reactstrap";
+
 const Card = styled.div`
   background-color: lightgrey;
   width: 380px;
@@ -42,6 +56,34 @@ const Login = ({ values, errors, touched, status }) => {
 
   return (
     <div>
+      <Navbar color="light" light expand="md">
+        <NavbarBrand href="/">Corporate Event Planner</NavbarBrand>
+        <NavbarToggler onClick={toggle} />
+        <Collapse isOpen={isOpen} navbar>
+          <Nav className="ml-auto" navbar>
+            <NavItem>
+              <NavLink href="./Login">Log In</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="./Registration">Register</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="./Events">Events</NavLink>
+            </NavItem>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Options
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>Option 1</DropdownItem>
+                <DropdownItem>Option 2</DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>Reset</DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </Nav>
+        </Collapse>
+      </Navbar>
       ​
       <Card>
         <FormField>
@@ -55,7 +97,7 @@ const Login = ({ values, errors, touched, status }) => {
           {touched.password && errors.password && (
             <p className="errors">{errors.password}</p>
           )}
-          ​<button type="submit">Log In!</button>​
+          ​<button>Log In!</button>​
           <p>
             New here?<Link to="/Registration"> Sign Up</Link>
           </p>
@@ -85,7 +127,6 @@ const LoginOnboard = withFormik({
     password: Yup.string().required()
   }),
   handleSubmit(values, { setStatus }) {
-    console.log("clicked");
     // values is our object with all our data on it
     axios
       .post("https://reqres.in/api/users/", values)

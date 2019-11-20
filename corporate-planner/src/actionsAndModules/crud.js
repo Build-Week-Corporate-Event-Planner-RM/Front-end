@@ -146,19 +146,6 @@ export const getVendors = () => dispatch => {
     .catch(err => dispatch({ type: GET_VENDORS_FAILED, payload: err }));
 };
 
-export const getTodosByEvent = id => dispatch => {
-  dispatch({ type: GETTING_TODOS });
-
-  authAxios()
-    .get(
-      `https://corporate-event-planner-api.herokuapp.com/api/events/${id}/todos`
-    )
-    .then(res => {
-      dispatch({ type: GOT_TODOS, payload: res.data });
-    })
-    .catch(err => dispatch({ type: GET_TODOS_FAILED, payload: err }));
-};
-
 export const submitEditVendor = (id, vendor) => dispatch => {
   dispatch({ type: EDITING_VENDOR });
 
@@ -209,3 +196,16 @@ export const deleteVendor = vendor => dispatch => {
 //
 //todos
 //
+
+export const getTodosByEvent = id => dispatch => {
+  dispatch({ type: GETTING_TODOS });
+
+  authAxios()
+    .get(
+      `https://corporate-event-planner-api.herokuapp.com/api/events/${id}/todos`
+    )
+    .then(res => {
+      dispatch({ type: GOT_TODOS, payload: res.data });
+    })
+    .catch(err => dispatch({ type: GET_TODOS_FAILED, payload: err }));
+};

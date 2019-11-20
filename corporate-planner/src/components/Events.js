@@ -10,6 +10,7 @@ import { GOT_EVENTS } from "../reducers/reducers";
 
 const Events = () => {
   const events = useSelector(state => state.events);
+  const todos = useSelector(state => state.eventTodos);
   const dispatch = useDispatch();
   const [editing, setEditing] = useState(false);
   const [showTodos, setShowTodos] = useState(false);
@@ -27,7 +28,7 @@ const Events = () => {
   };
 
   const showEventTodos = id => {
-    setShowTodos(true);
+    setShowTodos(!showTodos);
     dispatch(getTodosByEvent(id));
   };
 
@@ -66,6 +67,7 @@ const Events = () => {
                   {ev.datetime}
                 </p>
               </li>
+              {todos.length > 0 && <h1>test</h1>}
               <button onClick={() => showEventTodos(ev.id)}>Todos</button>
               <button
                 onClick={e => {

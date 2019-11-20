@@ -1,6 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from "reactstrap";
 import { Link } from "react-router-dom";
 
 export default function Events() {
@@ -10,16 +23,14 @@ export default function Events() {
   const toggle = () => setIsOpen(!isOpen);
 
   useEffect(() => {
-    axios
-      .get(`https://corporate-event-planner-api.herokuapp.com/api/events/`)
-      .then(response => {
-        console.log(response);
-        const characters = response.data.data.filter(character =>
-          character.name.toLowerCase().includes(query.toLowerCase())
-        );
-        console.log("corporate events", response);
-        setData(characters);
-      });
+    axios.get(`https://reqres.in/api/events/`, {}).then(response => {
+      console.log(response);
+      const characters = response.data.data.filter(character =>
+        character.name.toLowerCase().includes(query.toLowerCase())
+      );
+      console.log("corporate events", response);
+      setData(characters);
+    });
   }, [query]);
   const handleInputChange = event => {
     setQuery(event.target.value);
@@ -40,6 +51,34 @@ export default function Events() {
 
   return (
     <div>
+      <Navbar color="light" light expand="md">
+        <NavbarBrand href="/">Corporate Event Planner</NavbarBrand>
+        <NavbarToggler onClick={toggle} />
+        <Collapse isOpen={isOpen} navbar>
+          <Nav className="ml-auto" navbar>
+            <NavItem>
+              <NavLink href="./Login">Log In</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="./Registration">Register</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="./Events">Events</NavLink>
+            </NavItem>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Options
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>Option 1</DropdownItem>
+                <DropdownItem>Option 2</DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>Reset</DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </Nav>
+        </Collapse>
+      </Navbar>
       <form className="search">
         <input
           type="text"

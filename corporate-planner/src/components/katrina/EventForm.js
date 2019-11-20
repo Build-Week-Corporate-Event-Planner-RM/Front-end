@@ -6,6 +6,20 @@ import styled from "styled-components";
 import Registration from "./Registration";
 import { Link } from "react-router-dom";
 
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from "reactstrap";
+
 const Card = styled.div`
   background-color: lightgrey;
   width: 380px;
@@ -42,6 +56,35 @@ const EventForm = ({ values, errors, touched, status }) => {
 
   return (
     <div>
+      <Navbar color="light" light expand="md">
+        <NavbarBrand href="/">Corporate Event Planner</NavbarBrand>
+        <NavbarToggler onClick={toggle} />
+        <Collapse isOpen={isOpen} navbar>
+          <Nav className="ml-auto" navbar>
+            <NavItem>
+              <NavLink href="./Login">Log In</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="./Registration">Register</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="./Events">Events</NavLink>
+            </NavItem>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Options
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>Option 1</DropdownItem>
+                <DropdownItem>Option 2</DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>Reset</DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </Nav>
+        </Collapse>
+      </Navbar>
+      ​
       <Card>
         <FormField>
           <h2>Add an Event 👋</h2>
@@ -78,7 +121,7 @@ const EventForm = ({ values, errors, touched, status }) => {
             placeholder="Event Budget"
             value={values.budget || ""}
           />
-          ​<button type="submit">Add New Event!</button>​
+          ​<button>Add New Event!</button>​
           <p>
             Need to Login?<Link to="/Login"> Login</Link>
           </p>
@@ -109,7 +152,6 @@ const FormikEventForm = withFormik({
   }),
   handleSubmit(values, { setStatus }) {
     // values is our object with all our data on it
-    console.log("clicked");
     axios
       .get("https://pokeapi.co/api/v2/", values)
       .then(res => {
