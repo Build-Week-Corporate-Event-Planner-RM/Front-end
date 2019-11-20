@@ -10,14 +10,16 @@ export default function Events() {
   const toggle = () => setIsOpen(!isOpen);
 
   useEffect(() => {
-    axios.get(`https://reqres.in/api/events/`, {}).then(response => {
-      console.log(response);
-      const characters = response.data.data.filter(character =>
-        character.name.toLowerCase().includes(query.toLowerCase())
-      );
-      console.log("corporate events", response);
-      setData(characters);
-    });
+    axios
+      .get(`https://corporate-event-planner-api.herokuapp.com/api/events/`)
+      .then(response => {
+        console.log(response);
+        const characters = response.data.data.filter(character =>
+          character.name.toLowerCase().includes(query.toLowerCase())
+        );
+        console.log("corporate events", response);
+        setData(characters);
+      });
   }, [query]);
   const handleInputChange = event => {
     setQuery(event.target.value);

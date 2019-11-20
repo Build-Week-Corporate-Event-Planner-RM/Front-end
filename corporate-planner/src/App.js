@@ -9,6 +9,8 @@ import TestLogin from "./components/TestLogin";
 import Events from "./components/Events";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import Vendors from "./components/Vendors";
+import AddVendor from "./components/AddVendor";
 // import FormikEventForm from "./components/katrina/EventForm";
 // import Events from "./components/katrina/Events";
 // import Login from "./components/katrina/Login";
@@ -30,10 +32,15 @@ function App() {
       <br />
       <Link to="/testAddEvent">Test Add Event*</Link>
       <br />
+      <Link to="/testVendors">Test Vendors</Link>
+      <br />
+      <Link to="/testAddVendor">Test Add Vendor</Link>
 
       <Route path="/testLogin" component={TestLogin} />
       <Route path="/testRegister" component={Register} />
       <Route path="/testAddEvent" component={AddEvent} />
+      <Route path="/testVendors" component={Vendors} />
+      <Route path="/testAddVendor" component={AddVendor} />
 
       <Route path="/Registration" component={Registration} />
       <Route path="/Login" component={Login} />

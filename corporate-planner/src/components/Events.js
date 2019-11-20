@@ -136,6 +136,7 @@ const Events = () => {
                   onClick={e => {
                     e.preventDefault();
                     dispatch(submitEditEvent(eventToEdit.id, eventToEdit));
+                    setEditing(false);
                   }}
                 >
                   Save

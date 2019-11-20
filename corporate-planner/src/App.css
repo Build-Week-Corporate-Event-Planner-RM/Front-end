@@ -25,7 +25,8 @@
 .edit,
 .register,
 .login,
-.events {
+.events,
+.vendors {
   display: flex;
   justify-content: center;
   width: 100vw;
@@ -34,7 +35,8 @@
 .add-form,
 .edit-form,
 .register-form,
-.login-form {
+.login-form,
+.vendor-card {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -45,6 +47,7 @@
   padding: 5vh;
   margin: 5vh;
   box-shadow: 0px 0px 2px 0.2px #000000;
+  list-style: none;
 }
 
 .add-form {
