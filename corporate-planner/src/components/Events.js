@@ -67,7 +67,8 @@ const Events = () => {
                   {ev.datetime}
                 </p>
               </li>
-              {todos.length > 0 && <h1>test</h1>}
+              {showTodos &&
+                todos.map(todo => <p key={`${todo.name}`}>{todo.name}</p>)}
               <button onClick={() => showEventTodos(ev.id)}>Todos</button>
               <button
                 onClick={e => {
@@ -79,7 +80,7 @@ const Events = () => {
               </button>
               <button
                 onClick={e => {
-                  //   e.preventDefault();
+                  e.preventDefault();
                   dispatch(deleteEvent(ev));
                 }}
               >
