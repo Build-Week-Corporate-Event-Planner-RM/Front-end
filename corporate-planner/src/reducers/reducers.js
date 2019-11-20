@@ -16,8 +16,58 @@ export const EDITING = "EDITING";
 export const EDITED = "EDITED";
 export const EDIT_FAILED = "EDIT_FAILED";
 
+export const GETTING_VENDORS = "GETTING_VENDORS";
+export const GOT_VENDORS = "GOT_VENDORS";
+export const GET_VENDORS_FAILED = "GET_VENDORS_FAILED";
+
+export const GETTING_TODOS = "GETTING_TODOS";
+export const GOT_TODOS = "GOT_TODOS";
+export const GET_TODOS_FAILED = "GET_TODOS_FAILED";
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case GETTING_VENDORS: {
+      return {
+        ...state,
+        gettingVendors: true
+      };
+    }
+    case GOT_VENDORS: {
+      return {
+        ...state,
+        gettingVendors: false,
+        vendors: action.payload
+      };
+    }
+    case GET_VENDORS_FAILED: {
+      return {
+        ...state,
+        gettingVendors: false,
+        error: action.payload
+      };
+    }
+
+    case GETTING_TODOS: {
+      return {
+        ...state,
+        gettingTodos: true
+      };
+    }
+    case GOT_TODOS: {
+      return {
+        ...state,
+        gettingTodos: false,
+        todos: action.payload
+      };
+    }
+    case GET_TODOS_FAILED: {
+      return {
+        ...state,
+        gettingTodos: false,
+        error: action.payload
+      };
+    }
+
     case GETTING_EVENTS: {
       return {
         ...state,

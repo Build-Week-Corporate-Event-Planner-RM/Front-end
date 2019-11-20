@@ -6,7 +6,7 @@ const AddEvent = () => {
   const dispatch = useDispatch();
 
   const [newEvent, setNewEvent] = useState({
-    user_id: 1,
+    user_id: sessionStorage.getItem("id"),
     name: "",
     description: "",
     datetime: "",
@@ -42,7 +42,7 @@ const AddEvent = () => {
             <br />
             <br />
             <input
-              type="text"
+              type="datetime-local"
               name="datetime"
               onChange={changeHandler}
               placeholder="Date and Time"

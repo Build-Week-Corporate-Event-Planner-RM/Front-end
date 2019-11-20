@@ -3,31 +3,38 @@ import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import styled from "styled-components";
-// import Registration from "../components/Registration";
+import Registration from "./Registration";
 import { Link } from "react-router-dom";
 
 const Card = styled.div`
-  background-color: white;
+  background-color: lightgrey;
   width: 380px;
-  height: 300px;
+  height: 30rem;
   border-radius: 15px;
   padding: 10px;
   box-shadow: 0px 1px 4px black;
   text-align: center;
   margin: 15px auto;
-  margin-top: 15%;
+  margin-top: 5%;
 `;
 
-const FormField = styled.div`
-  background-color: white;
+const FormField = styled(Form)`
+  background-color: lightgrey;
   display: flex;
   flex-direction: column;
   text-align: center;
-  margin-top: 15%;
+  margin-top: 10%;
+`;
+
+const FormField2 = styled(Field)`
+margin-top:1%
+margin-bottom: 5%;
 `;
 
 const Login = ({ values, errors, touched, status }) => {
   const [users, setUsers] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
 
   useEffect(() => {
     status && setUsers(users => [...users, status]);
@@ -35,23 +42,29 @@ const Login = ({ values, errors, touched, status }) => {
 
   return (
     <div>
+      ​
       <Card>
         <FormField>
           <h2>Welcome Back 👋</h2>
-          <Field type="text" name="name" placeholder="Work e-mail" />
-          {touched.name && errors.name && (
-            <p className="errors">{errors.name}</p>
+          <FormField2 type="text" name="email" placeholder="Email" />
+          {touched.email && errors.email && (
+            <p className="errors">{errors.email}</p>
           )}
-
-          <Field type="password" name="password" placeholder="Password" />
+          ​
+          <FormField2 type="password" name="password" placeholder="Password" />
           {touched.password && errors.password && (
             <p className="errors">{errors.password}</p>
           )}
-
+          ​<button type="submit">Log In!</button>​
           <p>
-            New here?<Link to="/Registration">Sign Up</Link>
+            New here?<Link to="/Registration"> Sign Up</Link>
           </p>
-          <button type="submit">Submit!</button>
+          <p>
+            Planning an Event?<Link to="/AddEvent"> Add Event</Link>
+          </p>
+          <p>
+            See All Events<Link to="/Events"> See Events </Link>
+          </p>
         </FormField>
       </Card>
     </div>
@@ -61,34 +74,26 @@ const LoginOnboard = withFormik({
   mapPropsToValues({ name, email, password, termsOfService }) {
     return {
       name: name || "",
-      //   email: email || "",
-      password: password || ""
-      //   termsOfService: termsOfService || false
+      email: email || "",
+      password: password || "",
+      termsOfService: termsOfService || false
     };
   },
   validationSchema: Yup.object().shape({
     name: Yup.string().required(),
-    // email: Yup.string().required(),
+    email: Yup.string().required(),
     password: Yup.string().required()
   }),
   handleSubmit(values, { setStatus }) {
-    // values is our object with all our data on it
     console.log("clicked");
+    // values is our object with all our data on it
     axios
-      .post(`http://localhost:8000/api/auth/login`, values)
+      .post("https://reqres.in/api/users/", values)
       .then(res => {
-        alert(res.data.message);
-        sessionStorage.setItem("token", res.data.token);
-        sessionStorage.setItem("id", res.data.id);
+        setStatus(res.data);
+        console.log(res);
       })
-      .catch(err => console.log(err));
-    // axios
-    //   .post("https://reqres.in/api/users/", values)
-    //   .then(res => {
-    //     setStatus(res.data);
-    //     console.log(res);
-    //   })
-    //   .catch(err => console.log(err.response));
+      .catch(err => console.log(err.response));
   }
 })(Login);
 

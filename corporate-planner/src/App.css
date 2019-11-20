@@ -47,6 +47,10 @@
   box-shadow: 0px 0px 2px 0.2px #000000;
 }
 
+.add-form {
+  width: 20vw;
+}
+
 .add-form button {
   border-radius: 1px;
   border: 1px solid darkgray;

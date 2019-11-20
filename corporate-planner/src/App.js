@@ -9,11 +9,16 @@ import TestLogin from "./components/TestLogin";
 import Events from "./components/Events";
 import Register from "./components/Register";
 import Login from "./components/Login";
+// import FormikEventForm from "./components/katrina/EventForm";
+// import Events from "./components/katrina/Events";
+// import Login from "./components/katrina/Login";
 
 function App() {
   return (
     <div className="App">
       <NavBar />
+      {/* <FormikEventForm /> */}
+      {/* <Events /> */}
       <Link to="/Login">Login</Link>
       <br />
       <br />
@@ -32,7 +37,6 @@ function App() {
 
       <Route path="/Registration" component={Registration} />
       <Route path="/Login" component={Login} />
-      <Route path="/addevent" component={AddEvent} />
       <Switch>
         <PrivateRoute path="/protected">
           <Events />

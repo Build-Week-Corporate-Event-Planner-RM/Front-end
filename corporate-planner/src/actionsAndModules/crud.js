@@ -27,6 +27,7 @@ export const registerAcct = user => {
     )
     .then(res => {
       console.log(res.data);
+      sessionStorage.setItem("id", res.data.id);
       sessionStorage.setItem("token", res.data.token);
     })
     .catch(err => console.log(err));
@@ -40,6 +41,7 @@ export const login = user => {
     )
     .then(res => {
       console.log(res);
+      sessionStorage.setItem("id", res.data.id);
       sessionStorage.setItem("token", res.data.token);
     })
     .catch(err => console.log(err));
@@ -51,6 +53,7 @@ export const getEvents = () => dispatch => {
   authAxios()
     .get(`https://corporate-event-planner-api.herokuapp.com/api/events`)
     .then(res => {
+      console.log(res);
       dispatch({ type: GOT_EVENTS, payload: res.data });
     })
     .catch(err => dispatch({ type: GET_EVENTS_FAILED, payload: err }));
@@ -58,10 +61,14 @@ export const getEvents = () => dispatch => {
 
 export const submitNewEvent = event => dispatch => {
   dispatch({ type: POSTING });
+  console.log(event);
 
   authAxios()
     .post(`https://corporate-event-planner-api.herokuapp.com/api/events`, event)
-    .then(res => dispatch({ type: POSTED, payload: res.data }))
+    .then(res => {
+      console.log(res);
+      dispatch({ type: POSTED, payload: res.data });
+    })
     .catch(err => dispatch({ type: POST_FAILED, payload: err }))
     .finally(alert("New event posted"));
 };

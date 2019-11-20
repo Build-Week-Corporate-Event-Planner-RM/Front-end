@@ -5,6 +5,7 @@ import {
   getEvents,
   deleteEvent
 } from "../actionsAndModules/crud";
+import { GOT_EVENTS } from "../reducers/reducers";
 
 const Events = () => {
   const events = useSelector(state => state.events);
@@ -23,14 +24,21 @@ const Events = () => {
     setEventToEdit(event);
   };
 
+  const getMine = () => {
+    const seshId = JSON.parse(sessionStorage.getItem("id"));
+    const mine = events.filter(event => event.user_id === seshId);
+    dispatch({ type: GOT_EVENTS, payload: mine });
+  };
+
   return (
     <>
       <h3>Events</h3>
-      <button onClick={() => dispatch(getEvents())}>Get</button>
+      <button onClick={() => dispatch(getEvents())}>Get All</button>
+      <button onClick={getMine}>Get Mine</button>
       <div className="events">
         <ul>
           {events.map(ev => (
-            <div className="event-card" key={ev.name}>
+            <div className="event-card" key={`${ev.name}${ev.id}`}>
               <li>
                 <span>
                   <h3>
