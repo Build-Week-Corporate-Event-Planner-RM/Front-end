@@ -209,3 +209,20 @@ export const getTodosByEvent = id => dispatch => {
     })
     .catch(err => dispatch({ type: GET_TODOS_FAILED, payload: err }));
 };
+
+export const addNewTodo = todo => dispatch => {
+  console.log(" : todo", todo);
+  dispatch({ type: POSTING_TODO });
+
+  authAxios()
+    .post(
+      `https://corporate-event-planner-api.herokuapp.com/api/events/todos`,
+      todo
+    )
+    .then(res => {
+      console.log(res);
+      dispatch({ type: POSTED_TODO, payload: res.data });
+    })
+    .catch(err => dispatch({ type: POST_TODO_FAILED, payload: err }))
+    .finally(alert("Todo added"));
+};

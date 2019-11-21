@@ -4,7 +4,8 @@ import {
   submitEditEvent,
   getEvents,
   deleteEvent,
-  getTodosByEvent
+  getTodosByEvent,
+  addNewTodo
 } from "../actionsAndModules/crud";
 import { GOT_EVENTS } from "../reducers/reducers";
 
@@ -14,12 +15,20 @@ const Events = () => {
   const dispatch = useDispatch();
   const [editing, setEditing] = useState(false);
   const [showTodos, setShowTodos] = useState(false);
+  const [addTodo, setAddTodo] = useState(false);
+
   const [eventToEdit, setEventToEdit] = useState({
     user_id: undefined,
     name: "",
     description: "",
     datetime: "",
     budget: undefined
+  });
+
+  const [newTodo, setNewTodo] = useState({
+    event_id: 1,
+    name: ""
+    // completed: 0
   });
 
   const editEvent = event => {
@@ -67,9 +76,45 @@ const Events = () => {
                   {ev.datetime}
                 </p>
               </li>
-              {showTodos &&
-                todos.map(todo => <p key={`${todo.name}`}>{todo.name}</p>)}
-              <button onClick={() => showEventTodos(ev.id)}>Todos</button>
+              {showTodos && (
+                <>
+                  {todos.map(todo => (
+                    <p key={`${todo.name}`}>{todo.name}</p>
+                  ))}
+                  <button onClick={() => setAddTodo(!addTodo)}>New todo</button>
+                  {addTodo && (
+                    <div className="add-todo-form">
+                      <form>
+                        <h1>New Todo:</h1>
+                        <label>
+                          Todo name:
+                          <input
+                            onChange={e =>
+                              setNewTodo({ ...newTodo, name: e.target.value })
+                            }
+                            value={newTodo.name}
+                          />
+                        </label>
+                        {/* <p
+                          onChange={e =>
+                            setNewTodo({ ...newTodo, event_id: e.target.value })
+                          }
+                          value={newTodo.event_id}
+                        /> */}
+                        <button
+                          onClick={e => {
+                            e.preventDefault();
+                            dispatch(addNewTodo(newTodo));
+                          }}
+                        >
+                          Add
+                        </button>
+                      </form>
+                    </div>
+                  )}
+                </>
+              )}
+              <button onClick={() => showEventTodos(ev.id)}>View Todos</button>
               <button
                 onClick={e => {
                   e.preventDefault();
