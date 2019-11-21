@@ -9,16 +9,24 @@ import TestLogin from "./components/TestLogin";
 import Events from "./components/Events";
 import Register from "./components/Register";
 import Login from "./components/Login";
+<<<<<<< HEAD
 import Vendors from "./components/Vendors";
 import AddVendor from "./components/AddVendor";
 // import FormikEventForm from "./components/katrina/EventForm";
 // import Events from "./components/katrina/Events";
 // import Login from "./components/katrina/Login";
+=======
+import AddVendors from "./components/AddVendors";
+import MainEvents from "./components/MainEvents";
+import MainVendors from "./components/MainVendors";
+import AddEvent2 from "./components/AddEvent2";
+>>>>>>> 3a885c3626cb120607d1b53019fee8324289811e
 
 function App() {
   return (
     <div className="App">
       <NavBar />
+<<<<<<< HEAD
       {/* <FormikEventForm /> */}
       {/* <Events /> */}
       <Link to="/Login">Login</Link>
@@ -45,6 +53,16 @@ function App() {
 
       <Route path="/Registration" component={Registration} />
       <Route path="/Login" component={Login} />
+=======
+
+      <Route path="/Registration" component={Registration} />
+      <Route path="/Login" component={Login} />
+      <Route path="/addevents" component={AddEvent2} />
+      <Route path="/addvendors" component={AddVendors} />
+
+      <Route path="/events" component={MainEvents} />
+      <Route path="/vendors" component={MainVendors} />
+>>>>>>> 3a885c3626cb120607d1b53019fee8324289811e
       <Switch>
         <PrivateRoute path="/events">
           <Events />

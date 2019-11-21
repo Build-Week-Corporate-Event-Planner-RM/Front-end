@@ -3,26 +3,19 @@ import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import styled from "styled-components";
-// import Registration from "../components/Registration";
+import Registration from "../components/Registration";
 import { Link } from "react-router-dom";
 
+
 const Card = styled.div`
-  background-color: white;
+  background-color: #84FAA3;
   width: 380px;
-  height: 300px;
+  min-height: 400px;
   border-radius: 15px;
   padding: 10px;
   box-shadow: 0px 1px 4px black;
   text-align: center;
   margin: 15px auto;
-  margin-top: 15%;
-`;
-
-const FormField = styled.div`
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
   margin-top: 15%;
 `;
 
@@ -36,20 +29,24 @@ const Login = ({ values, errors, touched, status }) => {
   return (
     <div>
       <Card>
+<<<<<<< HEAD
         <Form>
+=======
+        <Form className="theForm">
+>>>>>>> 3a885c3626cb120607d1b53019fee8324289811e
           <h2>Welcome Back 👋</h2>
-          <Field type="text" name="name" placeholder="Work e-mail" />
-          {touched.name && errors.name && (
-            <p className="errors">{errors.name}</p>
+          <Field type="text" className="formField" name="username" placeholder="Username" />
+          {touched.username && errors.username && (
+            <p className="errors">{errors.username}</p>
           )}
 
-          <Field type="password" name="password" placeholder="Password" />
+          <Field type="password" className="formField" name="password" placeholder="Password" />
           {touched.password && errors.password && (
             <p className="errors">{errors.password}</p>
           )}
 
           <p>
-            New here?<Link to="/Registration">Sign Up</Link>
+            New here?  <Link to="/Registration">Sign Up</Link>
           </p>
           <button type="submit">Submit!</button>
         </Form>
@@ -57,27 +54,26 @@ const Login = ({ values, errors, touched, status }) => {
     </div>
   );
 };
+
 const LoginOnboard = withFormik({
-  mapPropsToValues({ name, email, password, termsOfService }) {
+  mapPropsToValues({ username, email, password, termsOfService }) {
     return {
-      name: name || "",
-      //   email: email || "",
+      username: username || "",
       password: password || ""
-      //   termsOfService: termsOfService || false
     };
   },
   validationSchema: Yup.object().shape({
-    name: Yup.string().required(),
-    // email: Yup.string().required(),
+    username: Yup.string().required(),
     password: Yup.string().required()
   }),
   handleSubmit(values, { setStatus }) {
     // values is our object with all our data on it
     console.log("clicked");
     axios
-      .post(`http://localhost:8000/api/auth/login`, values)
+      .post(`https://corporate-event-planner-api.herokuapp.com/api/auth/login`, values)
       .then(res => {
         alert(res.data.message);
+        sessionStorage.setItem("id", res.data.id);
         sessionStorage.setItem("token", res.data.token);
         sessionStorage.setItem("id", res.data.id);
       })
