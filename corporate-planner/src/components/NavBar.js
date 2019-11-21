@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Login from "../components/Login";
+import { Link } from "react-router-dom";
 
 import {
   Collapse,
@@ -24,7 +26,7 @@ const NavBar = () => {
       <Collapse isOpen={isOpen} navbar>
         <Nav className="ml-auto" navbar>
           <NavItem>
-            <NavLink href="/Login">
+            <NavLink href="../components/Login">
               Log In/Register
             </NavLink>
           </NavItem>
