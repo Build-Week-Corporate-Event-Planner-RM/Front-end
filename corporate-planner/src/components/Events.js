@@ -16,6 +16,7 @@ const Events = () => {
   const [editing, setEditing] = useState(false);
   const [showTodos, setShowTodos] = useState(false);
   const [addTodo, setAddTodo] = useState(false);
+  const [todoList, setTodoList] = useState(todos);
 
   const [eventToEdit, setEventToEdit] = useState({
     user_id: undefined,
@@ -78,6 +79,9 @@ const Events = () => {
               </li>
               {showTodos && (
                 <>
+                  {/* {todos.filter(todo => (
+                    
+                ))} */}
                   {todos.map(todo => (
                     <p key={`${todo.name}`}>{todo.name}</p>
                   ))}

@@ -36,7 +36,7 @@ import {
 //
 // login and register
 //
-export const registerAcct = user => {
+export const registerAcct = (user, props) => {
   axios
     .post(
       `https://corporate-event-planner-api.herokuapp.com/api/auth/register`,
@@ -46,11 +46,12 @@ export const registerAcct = user => {
       console.log(res.data);
       sessionStorage.setItem("id", res.data.id);
       sessionStorage.setItem("token", res.data.token);
+      props.history.push("/events");
     })
     .catch(err => console.log(err));
 };
 
-export const login = user => {
+export const login = (user, props) => {
   axios
     .post(
       `https://corporate-event-planner-api.herokuapp.com/api/auth/login`,
@@ -60,6 +61,7 @@ export const login = user => {
       console.log(res);
       sessionStorage.setItem("id", res.data.id);
       sessionStorage.setItem("token", res.data.token);
+      props.history.push("/events");
     })
     .catch(err => console.log(err));
 };
@@ -79,7 +81,7 @@ export const getEvents = () => dispatch => {
     .catch(err => dispatch({ type: GET_EVENTS_FAILED, payload: err }));
 };
 
-export const submitNewEvent = event => dispatch => {
+export const submitNewEvent = (event, props) => dispatch => {
   dispatch({ type: POSTING });
   console.log(event);
 
@@ -88,6 +90,7 @@ export const submitNewEvent = event => dispatch => {
     .then(res => {
       console.log(res);
       dispatch({ type: POSTED, payload: res.data });
+      props.history.push("/events");
     })
     .catch(err => dispatch({ type: POST_FAILED, payload: err }))
     .finally(alert("New event posted"));
@@ -198,6 +201,7 @@ export const deleteVendor = vendor => dispatch => {
 //
 
 export const getTodosByEvent = id => dispatch => {
+  console.log(" : id", id);
   dispatch({ type: GETTING_TODOS });
 
   authAxios()
@@ -205,6 +209,7 @@ export const getTodosByEvent = id => dispatch => {
       `https://corporate-event-planner-api.herokuapp.com/api/events/${id}/todos`
     )
     .then(res => {
+      console.log(" : res", res);
       dispatch({ type: GOT_TODOS, payload: res.data });
     })
     .catch(err => dispatch({ type: GET_TODOS_FAILED, payload: err }));

@@ -36,9 +36,9 @@ function App() {
       <br />
       <Link to="/testAddVendor">Test Add Vendor</Link>
 
-      <Route path="/testLogin" component={TestLogin} />
-      <Route path="/testRegister" component={Register} />
-      <Route path="/testAddEvent" component={AddEvent} />
+      <Route path="/testLogin" render={props => <TestLogin {...props} />} />
+      <Route path="/testRegister" render={props => <Register {...props} />} />
+      <Route path="/testAddEvent" render={props => <AddEvent {...props} />} />
       <Route path="/testVendors" component={Vendors} />
       <Route path="/testAddVendor" component={AddVendor} />
 

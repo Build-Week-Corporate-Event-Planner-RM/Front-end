@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { login } from "../actionsAndModules/crud";
 import { Link } from "react-router-dom";
 
-const TestLogin = () => {
+const TestLogin = props => {
   const [user, setUser] = useState({
     username: "",
     password: ""
   });
+  const [loaded, setLoaded] = useState(false);
+
+  //   useEffect(() => {
+  //     sessionStorage.getItem("token") ? props.history.push(`/events`) : null;
+  //   }, []);
 
   const handleChange = e => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -14,7 +19,7 @@ const TestLogin = () => {
 
   const submitLogin = e => {
     e.preventDefault();
-    login(user);
+    login(user, props);
   };
 
   return (

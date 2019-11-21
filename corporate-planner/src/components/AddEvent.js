@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { submitNewEvent } from "../actionsAndModules/crud";
 
-const AddEvent = () => {
+const AddEvent = props => {
   const dispatch = useDispatch();
 
   const [newEvent, setNewEvent] = useState({
@@ -60,7 +60,7 @@ const AddEvent = () => {
           <button
             onClick={e => {
               e.preventDefault();
-              dispatch(submitNewEvent(newEvent));
+              dispatch(submitNewEvent(newEvent, props));
             }}
           >
             Create new event

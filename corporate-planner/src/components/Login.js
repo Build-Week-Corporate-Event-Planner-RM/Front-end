@@ -36,7 +36,7 @@ const Login = ({ values, errors, touched, status }) => {
   return (
     <div>
       <Card>
-        <FormField>
+        <Form>
           <h2>Welcome Back 👋</h2>
           <Field type="text" name="name" placeholder="Work e-mail" />
           {touched.name && errors.name && (
@@ -52,7 +52,7 @@ const Login = ({ values, errors, touched, status }) => {
             New here?<Link to="/Registration">Sign Up</Link>
           </p>
           <button type="submit">Submit!</button>
-        </FormField>
+        </Form>
       </Card>
     </div>
   );
