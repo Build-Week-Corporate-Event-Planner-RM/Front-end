@@ -19,12 +19,11 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import NavBar from "./NavBar";
 
 const Card = styled.div`
-  background-color: white;
+  background-color: #84FAA3;
   width: 380px;
-  height: 475px;
+  min-height: 550px;
   border-radius: 15px;
   padding: 10px;
   box-shadow: 0px 1px 4px black;
@@ -33,13 +32,6 @@ const Card = styled.div`
   margin-top: 10%;
 `;
 
-const FormField = styled.div`
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  margin-top: 15%;
-`;
 
 const Registration = ({ values, errors, touched, status }) => {
   const [users, setUsers] = useState([]);
@@ -53,51 +45,53 @@ const Registration = ({ values, errors, touched, status }) => {
   return (
     <div>
       <Card>
-        <FormField>
+        <Form className="theForm">
           <h2>Hello! 👋</h2>
 
-          <Field type="text" name="name" placeholder="Full Name" />
-          {touched.name && errors.name && (
-            <p className="errors">{errors.name}</p>
+          <Field type="text" className="formField" name="username" placeholder="Username" />
+          {touched.username && errors.username && (
+            <p className="errors">{errors.username}</p>
           )}
 
-          <Field type="text" name="email" placeholder="Work e-mail" />
-          {touched.name && errors.name && (
+          <Field type="text" className="formField" name="email" placeholder="Work e-mail" />
+          {touched.email && errors.email && (
             <p className="errors">{errors.email}</p>
           )}
 
-          <Field type="password" name="password" placeholder="Password" />
+          <Field type="password" className="formField" name="password" placeholder="Password" />
           {touched.password && errors.password && (
             <p className="errors">{errors.password}</p>
           )}
 
-          <Field type="text" name="company" placeholder="Company" />
+          <Field type="text" className="formField" name="company" placeholder="Company" />
 
-          <Field type="text" name="role" placeholder="Role" />
+          <Field type="text" className="formField" name="role" placeholder="Role" />
 
           <label className="checkbox-container">
             Terms Of Service
             <Field
               type="checkbox"
+              className="formField"
               name="termsOfService"
               checked={values.termsOfService}
             />
           </label>
 
-          <button>Submit!</button>
+          <button type="submit">Submit!</button>
 
           <p>
-            Already have an account?<Link to="/Login">Log In</Link>
+            Already have an account? <Link to="/Login">Log In</Link>
           </p>
-        </FormField>
+        </Form>
       </Card>
     </div>
   );
 };
+
 const RegistrationOnboard = withFormik({
-  mapPropsToValues({ name, email, password, company, role }) {
+  mapPropsToValues({ username, email, password, company, role }) {
     return {
-      name: name || "",
+      username: username || "",
       email: email || "",
       password: password || "",
       company: company || "",
@@ -105,7 +99,7 @@ const RegistrationOnboard = withFormik({
     };
   },
   validationSchema: Yup.object().shape({
-    name: Yup.string().required(),
+    username: Yup.string().required(),
     email: Yup.string().required(),
     password: Yup.string().required()
   }),
@@ -114,11 +108,13 @@ const RegistrationOnboard = withFormik({
     console.log("submit");
     axios
       .post(
-        `https://corporate-event-planner-api.herokuapp.com/api/auth/login`,
+        `https://corporate-event-planner-api.herokuapp.com/api/auth/register`,
         values
       )
       .then(res => {
         setStatus(res.data);
+        sessionStorage.setItem("id", res.data.id);
+        sessionStorage.setItem("token", res.data.token);
         console.log(res);
       })
       .catch(err => console.log(err.response));

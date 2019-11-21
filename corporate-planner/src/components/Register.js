@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { registerAcct } from "../actionsAndModules/crud";
 
-const Register = () => {
+const Register = props => {
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -16,7 +16,7 @@ const Register = () => {
 
   const register = e => {
     e.preventDefault();
-    registerAcct(user);
+    registerAcct(user, props);
   };
 
   return (

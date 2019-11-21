@@ -143,7 +143,7 @@ const reducer = (state = initialState, action) => {
     case POSTED_VENDOR: {
       return {
         ...state,
-        vendors: [...state.vendors, action.payload],
+        // vendors: [...state.vendors, action.payload],
         postingVendor: false
       };
     }

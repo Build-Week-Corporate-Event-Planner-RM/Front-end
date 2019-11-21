@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Login from "../components/Login";
+import { Link } from "react-router-dom";
 
 import {
   Collapse,
@@ -19,29 +21,36 @@ const NavBar = () => {
   const toggle = () => setIsOpen(!isOpen);
   return (
     <Navbar color="light" light expand="md">
-      <NavbarBrand href="/">Corporate Event Planner</NavbarBrand>
-      <NavbarToggler onClick={toggle} />
-      <Collapse isOpen={isOpen} navbar>
-        <Nav className="ml-auto" navbar>
+        <NavbarBrand href="/">Corporate Event Planner</NavbarBrand>
+        <NavbarToggler onClick={toggle} />
+        <Collapse isOpen={isOpen} navbar>
+          <Nav className="ml-auto" navbar>
           <NavItem>
-            <NavLink href="https://github.com/reactstrap/reactstrap">
-              Log In/Register
-            </NavLink>
-          </NavItem>
-          <UncontrolledDropdown nav inNavbar>
-            <DropdownToggle nav caret>
-              Options
-            </DropdownToggle>
-            <DropdownMenu right>
-              <DropdownItem>Option 1</DropdownItem>
-              <DropdownItem>Option 2</DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem>Reset</DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
-        </Nav>
-      </Collapse>
-    </Navbar>
+              <NavLink href="./Login">Log In</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="./Registration">Register</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="./Events">Events</NavLink>
+            </NavItem>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Add
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem href="./addevents">
+                  Add Events
+                </DropdownItem>
+                <DropdownItem href="./addvendors">
+                  Add Vendors
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </Nav>
+        </Collapse>
+      </Navbar>
+
   );
 };
 

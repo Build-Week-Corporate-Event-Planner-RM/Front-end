@@ -36,30 +36,24 @@ import {
 //
 // login and register
 //
-export const registerAcct = user => {
+export const registerAcct = (user, props) => {
   axios
-    .post(
-      `https://corporate-event-planner-api.herokuapp.com/api/auth/register`,
-      user
-    )
+    .post(`/auth/register`, user)
     .then(res => {
-      console.log(res.data);
       sessionStorage.setItem("id", res.data.id);
       sessionStorage.setItem("token", res.data.token);
+      props.history.push("/events");
     })
     .catch(err => console.log(err));
 };
 
-export const login = user => {
+export const login = (user, props) => {
   axios
-    .post(
-      `https://corporate-event-planner-api.herokuapp.com/api/auth/login`,
-      user
-    )
+    .post(`/auth/login`, user)
     .then(res => {
-      console.log(res);
       sessionStorage.setItem("id", res.data.id);
       sessionStorage.setItem("token", res.data.token);
+      props.history.push("/events");
     })
     .catch(err => console.log(err));
 };
@@ -71,23 +65,21 @@ export const getEvents = () => dispatch => {
   dispatch({ type: GETTING_EVENTS });
 
   authAxios()
-    .get(`https://corporate-event-planner-api.herokuapp.com/api/events`)
+    .get(`/events`)
     .then(res => {
-      console.log(res);
       dispatch({ type: GOT_EVENTS, payload: res.data });
     })
     .catch(err => dispatch({ type: GET_EVENTS_FAILED, payload: err }));
 };
 
-export const submitNewEvent = event => dispatch => {
+export const submitNewEvent = (event, props) => dispatch => {
   dispatch({ type: POSTING });
-  console.log(event);
 
   authAxios()
-    .post(`https://corporate-event-planner-api.herokuapp.com/api/events`, event)
+    .post(`/events`, event)
     .then(res => {
-      console.log(res);
       dispatch({ type: POSTED, payload: res.data });
+      props.history.push("/events");
     })
     .catch(err => dispatch({ type: POST_FAILED, payload: err }))
     .finally(alert("New event posted"));
@@ -97,14 +89,11 @@ export const deleteEvent = event => dispatch => {
   dispatch({ type: DELETING });
 
   authAxios()
-    .delete(
-      `https://corporate-event-planner-api.herokuapp.com/api/events/${event.id}`
-    )
+    .delete(`/events/${event.id}`)
     .then(
       authAxios()
-        .get(`https://corporate-event-planner-api.herokuapp.com/api/events`)
+        .get(`/events`)
         .then(res => {
-          console.log(res.data);
           dispatch({ type: DELETED, payload: res.data });
         })
     )
@@ -117,10 +106,7 @@ export const submitEditEvent = (id, event) => dispatch => {
   delete event.completed;
 
   authAxios()
-    .put(
-      `https://corporate-event-planner-api.herokuapp.com/api/events/${id}`,
-      event
-    )
+    .put(`/events/${id}`, event)
     .then(res => {
       dispatch({ type: EDITED, payload: res.data });
     })
@@ -136,11 +122,8 @@ export const getVendors = () => dispatch => {
   dispatch({ type: GETTING_VENDORS });
 
   authAxios()
-    .get(
-      `https://corporate-event-planner-api.herokuapp.com/api/events/vendors/`
-    )
+    .get(`/events/vendors/`)
     .then(res => {
-      console.log(res);
       dispatch({ type: GOT_VENDORS, payload: res.data });
     })
     .catch(err => dispatch({ type: GET_VENDORS_FAILED, payload: err }));
@@ -150,12 +133,8 @@ export const submitEditVendor = (id, vendor) => dispatch => {
   dispatch({ type: EDITING_VENDOR });
 
   authAxios()
-    .put(
-      `https://corporate-event-planner-api.herokuapp.com/api/events/vendors/${id}`,
-      vendor
-    )
+    .put(`/events/vendors/${id}`, vendor)
     .then(res => {
-      console.log(res);
       dispatch({ type: EDITED_VENDOR, payload: res.data });
     })
     .catch(err => {
@@ -163,31 +142,31 @@ export const submitEditVendor = (id, vendor) => dispatch => {
     });
 };
 
-export const submitNewVendor = vendor => dispatch => {
+export const submitNewVendor = (vendor, props) => dispatch => {
   dispatch({ type: POSTING_VENDOR });
 
   authAxios()
-    .post(
-      `https://corporate-event-planner-api.herokuapp.com/api/events/vendors`,
-      vendor
-    )
+    .post(`/events/vendors`, vendor)
     .then(res => {
-      console.log("post vendor res", res);
-      dispatch({ type: POSTED_VENDOR, payload: res.data });
+      dispatch({ type: POSTED_VENDOR });
+
+      authAxios()
+        .get(`/events/vendors/`)
+        .then(res => {
+          dispatch({ type: GOT_VENDORS, payload: res.data });
+          props.history.push("/testVendors");
+        })
+        .catch(err => dispatch({ type: GET_VENDORS_FAILED, payload: err }));
     })
     .catch(err => dispatch({ type: POST_VENDOR_FAILED, payload: err }));
 };
 
 export const deleteVendor = vendor => dispatch => {
-  console.log("vendor into delete req", vendor.id);
   dispatch({ type: DELETING_VENDOR });
 
   authAxios()
-    .delete(
-      `https://corporate-event-planner-api.herokuapp.com/api/events/vendors/${vendor.id}`
-    )
+    .delete(`/events/vendors/${vendor.id}`)
     .then(res => {
-      console.log("delete req res", res.data);
       dispatch({ type: DELETED_VENDOR });
     })
     .catch(err => dispatch({ type: DELETE_VENDOR_FAILED, payload: err }));
@@ -201,11 +180,21 @@ export const getTodosByEvent = id => dispatch => {
   dispatch({ type: GETTING_TODOS });
 
   authAxios()
-    .get(
-      `https://corporate-event-planner-api.herokuapp.com/api/events/${id}/todos`
-    )
+    .get(`/events/${id}/todos`)
     .then(res => {
       dispatch({ type: GOT_TODOS, payload: res.data });
     })
     .catch(err => dispatch({ type: GET_TODOS_FAILED, payload: err }));
+};
+
+export const addNewTodo = todo => dispatch => {
+  dispatch({ type: POSTING_TODO });
+
+  authAxios()
+    .post(`/events/todos`, todo)
+    .then(res => {
+      dispatch({ type: POSTED_TODO, payload: res.data });
+    })
+    .catch(err => dispatch({ type: POST_TODO_FAILED, payload: err }))
+    .finally(alert("Todo added"));
 };
