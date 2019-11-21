@@ -32,7 +32,10 @@ const NavBar = () => {
               <NavLink href="./Registration">Register</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="./Events">Events</NavLink>
+              <NavLink href="./events">Events</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="./vendors">Vendors</NavLink>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
