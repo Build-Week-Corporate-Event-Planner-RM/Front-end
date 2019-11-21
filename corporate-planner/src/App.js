@@ -40,7 +40,8 @@ function App() {
       <Route path="/testRegister" render={props => <Register {...props} />} />
       <Route path="/testAddEvent" render={props => <AddEvent {...props} />} />
       <Route path="/testVendors" component={Vendors} />
-      <Route path="/testAddVendor" component={AddVendor} />
+      {/* <Route path="/testAddVendor" component={AddVendor} /> */}
+      <Route path="/testAddVendor" render={props => <AddVendor {...props} />} />
 
       <Route path="/Registration" component={Registration} />
       <Route path="/Login" component={Login} />

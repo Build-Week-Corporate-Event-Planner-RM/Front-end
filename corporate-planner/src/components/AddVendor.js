@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { submitNewVendor } from "../actionsAndModules/crud";
 
-const AddVendor = () => {
+const AddVendor = props => {
   const dispatch = useDispatch();
 
   const [newVendor, setNewVendor] = useState({
@@ -32,7 +32,7 @@ const AddVendor = () => {
           <button
             onClick={e => {
               e.preventDefault();
-              dispatch(submitNewVendor(newVendor));
+              dispatch(submitNewVendor(newVendor, props));
             }}
           >
             Submit New Vendor

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getVendors,
@@ -9,11 +9,16 @@ import {
 const Vendors = () => {
   const vendors = useSelector(state => state.vendors);
   const dispatch = useDispatch();
+  const [vendArr, setVendArr] = useState([]);
   const [editing, setEditing] = useState(false);
   const [vendorToEdit, setVendorToEdit] = useState({
     id: undefined,
     name: ""
   });
+
+  useEffect(() => {
+    setVendArr(vendors);
+  }, []);
 
   const editVendor = vendor => {
     setEditing(true);
@@ -26,7 +31,7 @@ const Vendors = () => {
       <button onClick={() => dispatch(getVendors())}>Get Vendors</button>
       <ul>
         <div className="vendors">
-          {vendors.map(vend => (
+          {vendArr.map(vend => (
             <div className="vendor-card" key={`${vend.name}`}>
               <li>
                 <span>
