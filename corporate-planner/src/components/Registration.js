@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { withFormik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-import axios from 'axios';
-import styled from 'styled-components';
-import Login from '../components/Login';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { withFormik, Form, Field } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
+import styled from "styled-components";
+import Login from "../components/Login";
+import { Link } from "react-router-dom";
 
 import {
   Collapse,
@@ -17,30 +17,19 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from 'reactstrap';
+  DropdownItem
+} from "reactstrap";
 
 const Card = styled.div`
   background-color: white;
   width: 380px;
-  height: 475px;
+  min-height: 550px;
   border-radius: 15px;
   padding: 10px;
   box-shadow: 0px 1px 4px black;
   text-align: center;
   margin: 15px auto;
   margin-top: 10%;
-`;
-
-const FormField = styled(Form)`
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  margin-top: 10%;
-`;
-
-const FormField2 = styled(Field)`
-  margin-top: 1%
-  margin-bottom: 5%;
 `;
 
 
@@ -53,63 +42,83 @@ const Registration = ({ values, errors, touched, status }) => {
     status && setUsers(users => [...users, status]);
   }, [status]);
 
-
-
   return (
     <div>
-    <Navbar />
-
       <Card>
-        <FormField>
+        <Form className="theForm">
           <h2>Hello! 👋</h2>
 
-            <FormField2 type="text" name="name" placeholder="Full Name" />
-            {touched.name && errors.name && <p className="errors">{errors.name}</p>}
+          <Field type="text" className="formField" name="username" placeholder="Username" />
+          {touched.username && errors.username && (
+            <p className="errors">{errors.username}</p>
+          )}
 
-            <FormField2 type="text" name="email" placeholder="Work e-mail" />
-            {touched.email && errors.email && <p className="errors">{errors.email}</p>}
+          <Field type="text" className="formField" name="email" placeholder="Work e-mail" />
+          {touched.email && errors.email && (
+            <p className="errors">{errors.email}</p>
+          )}
 
-            <FormField2 type="password" name="password" placeholder="Password" />
-            {touched.password && errors.password && <p className="errors">{errors.password}</p>}
+          <Field type="password" className="formField" name="password" placeholder="Password" />
+          {touched.password && errors.password && (
+            <p className="errors">{errors.password}</p>
+          )}
 
+          <Field type="text" className="formField" name="company" placeholder="Company" />
 
-            <label className="checkbox-container">
-              Terms Of Service
-              <Field type="checkbox" name="termsOfService" checked={values.termsOfService}/>
-            </label>
+          <Field type="text" className="formField" name="role" placeholder="Role" />
 
-            <button>Submit!</button>
+          <label className="checkbox-container">
+            Terms Of Service
+            <Field
+              type="checkbox"
+              className="formField"
+              name="termsOfService"
+              checked={values.termsOfService}
+            />
+          </label>
 
-          <p>Already have an account?<Link to="/Login">Log In</Link></p>
-        </FormField>
+          <button type="submit">Submit!</button>
+
+          <p>
+            Already have an account? <Link to="/Login">Log In</Link>
+          </p>
+        </Form>
       </Card>
-  </div>
+    </div>
   );
 };
+
 const RegistrationOnboard = withFormik({
-  mapPropsToValues({ name, email, password }) {
+  mapPropsToValues({ username, email, password, company, role }) {
     return {
-      name: name || "",
+      username: username || "",
       email: email || "",
       password: password || "",
+      company: company || "",
+      role: role || ""
     };
   },
   validationSchema: Yup.object().shape({
-    name: Yup.string().required(),
+    username: Yup.string().required(),
     email: Yup.string().required(),
     password: Yup.string().required()
   }),
   handleSubmit(values, { setStatus }) {
     // values is our object with all our data on it
+    console.log("submit");
     axios
-      .post("https://reqres.in/api/users/", values)
+      .post(
+        `https://corporate-event-planner-api.herokuapp.com/api/auth/register`,
+        values
+      )
       .then(res => {
         setStatus(res.data);
+        sessionStorage.setItem("id", res.data.id);
+        sessionStorage.setItem("token", res.data.token);
         console.log(res);
       })
       .catch(err => console.log(err.response));
   }
 })(Registration);
-
 
 export default RegistrationOnboard;

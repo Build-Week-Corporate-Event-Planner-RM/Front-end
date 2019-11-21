@@ -70,3 +70,16 @@
 .edit {
   height: 60vh;
 }
+
+.theForm {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 15%;
+}
+
+.formField {
+  margin-top: 1%;
+  margin-bottom: 5%;
+}

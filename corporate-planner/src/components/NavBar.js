@@ -24,21 +24,10 @@ const NavBar = () => {
       <Collapse isOpen={isOpen} navbar>
         <Nav className="ml-auto" navbar>
           <NavItem>
-            <NavLink href="https://github.com/reactstrap/reactstrap">
+            <NavLink href="/Login">
               Log In/Register
             </NavLink>
           </NavItem>
-          <UncontrolledDropdown nav inNavbar>
-            <DropdownToggle nav caret>
-              Options
-            </DropdownToggle>
-            <DropdownMenu right>
-              <DropdownItem>Option 1</DropdownItem>
-              <DropdownItem>Option 2</DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem>Reset</DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
         </Nav>
       </Collapse>
     </Navbar>
