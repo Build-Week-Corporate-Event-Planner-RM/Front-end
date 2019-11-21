@@ -6,6 +6,8 @@ import {
   deleteEvent
 } from "../actionsAndModules/crud";
 
+
+
 const Events = () => {
   const events = useSelector(state => state.events);
   const dispatch = useDispatch();

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 
 const Card = styled.div`
-  background-color: white;
+  background-color: #84FAA3;
   width: 380px;
   min-height: 400px;
   border-radius: 15px;

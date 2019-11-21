@@ -21,18 +21,36 @@ const NavBar = () => {
   const toggle = () => setIsOpen(!isOpen);
   return (
     <Navbar color="light" light expand="md">
-      <NavbarBrand href="/">Corporate Event Planner</NavbarBrand>
-      <NavbarToggler onClick={toggle} />
-      <Collapse isOpen={isOpen} navbar>
-        <Nav className="ml-auto" navbar>
+        <NavbarBrand href="/">Corporate Event Planner</NavbarBrand>
+        <NavbarToggler onClick={toggle} />
+        <Collapse isOpen={isOpen} navbar>
+          <Nav className="ml-auto" navbar>
           <NavItem>
-            <NavLink href="../components/Login">
-              Log In/Register
-            </NavLink>
-          </NavItem>
-        </Nav>
-      </Collapse>
-    </Navbar>
+              <NavLink href="./Login">Log In</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="./Registration">Register</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="./Events">Events</NavLink>
+            </NavItem>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Add
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem href="./addevents">
+                  Add Events
+                </DropdownItem>
+                <DropdownItem href="./addvendors">
+                  Add Vendors
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </Nav>
+        </Collapse>
+      </Navbar>
+
   );
 };
 
