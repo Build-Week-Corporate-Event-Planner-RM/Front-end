@@ -20,40 +20,11 @@ import AddVendors from "./components/AddVendors";
 import MainEvents from "./components/MainEvents";
 import MainVendors from "./components/MainVendors";
 import AddEvent2 from "./components/AddEvent2";
->>>>>>> 3a885c3626cb120607d1b53019fee8324289811e
 
 function App() {
   return (
     <div className="App">
       <NavBar />
-<<<<<<< HEAD
-      {/* <FormikEventForm /> */}
-      {/* <Events /> */}
-      <Link to="/Login">Login</Link>
-      <br />
-      <br />
-      <Link to="/events">Events (private route)*</Link>
-      <br />
-      <Link to="/testLogin">Test Login*</Link>
-      <br />
-      <Link to="/testRegister">Test Register*</Link>
-      <br />
-      <Link to="/testAddEvent">Test Add Event*</Link>
-      <br />
-      <Link to="/testVendors">Test Vendors</Link>
-      <br />
-      <Link to="/testAddVendor">Test Add Vendor</Link>
-
-      <Route path="/testLogin" render={props => <TestLogin {...props} />} />
-      <Route path="/testRegister" render={props => <Register {...props} />} />
-      <Route path="/testAddEvent" render={props => <AddEvent {...props} />} />
-      <Route path="/testVendors" component={Vendors} />
-      {/* <Route path="/testAddVendor" component={AddVendor} /> */}
-      <Route path="/testAddVendor" render={props => <AddVendor {...props} />} />
-
-      <Route path="/Registration" component={Registration} />
-      <Route path="/Login" component={Login} />
-=======
 
       <Route path="/Registration" component={Registration} />
       <Route path="/Login" component={Login} />
@@ -62,7 +33,6 @@ function App() {
 
       <Route path="/events" component={MainEvents} />
       <Route path="/vendors" component={MainVendors} />
->>>>>>> 3a885c3626cb120607d1b53019fee8324289811e
       <Switch>
         <PrivateRoute path="/events">
           <Events />
