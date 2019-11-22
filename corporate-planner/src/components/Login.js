@@ -6,9 +6,8 @@ import styled from "styled-components";
 import Registration from "../components/Registration";
 import { Link } from "react-router-dom";
 
-
 const Card = styled.div`
-  background-color: #84FAA3;
+  background-color: #84faa3;
   width: 380px;
   min-height: 400px;
   border-radius: 15px;
@@ -29,24 +28,30 @@ const Login = ({ values, errors, touched, status }) => {
   return (
     <div>
       <Card>
-<<<<<<< HEAD
-        <Form>
-=======
         <Form className="theForm">
->>>>>>> 3a885c3626cb120607d1b53019fee8324289811e
           <h2>Welcome Back 👋</h2>
-          <Field type="text" className="formField" name="username" placeholder="Username" />
+          <Field
+            type="text"
+            className="formField"
+            name="username"
+            placeholder="Username"
+          />
           {touched.username && errors.username && (
             <p className="errors">{errors.username}</p>
           )}
 
-          <Field type="password" className="formField" name="password" placeholder="Password" />
+          <Field
+            type="password"
+            className="formField"
+            name="password"
+            placeholder="Password"
+          />
           {touched.password && errors.password && (
             <p className="errors">{errors.password}</p>
           )}
 
           <p>
-            New here?  <Link to="/Registration">Sign Up</Link>
+            New here? <Link to="/Registration">Sign Up</Link>
           </p>
           <button type="submit">Submit!</button>
         </Form>
@@ -70,7 +75,10 @@ const LoginOnboard = withFormik({
     // values is our object with all our data on it
     console.log("clicked");
     axios
-      .post(`https://corporate-event-planner-api.herokuapp.com/api/auth/login`, values)
+      .post(
+        `https://corporate-event-planner-api.herokuapp.com/api/auth/login`,
+        values
+      )
       .then(res => {
         alert(res.data.message);
         sessionStorage.setItem("id", res.data.id);
