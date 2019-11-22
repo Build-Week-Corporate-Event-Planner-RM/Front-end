@@ -1,21 +1,11 @@
 import React from "react";
 import "./App.css";
 import Registration from "./components/Registration";
-import { Route, Switch, Link } from "react-router-dom";
-import AddEvent from "./components/AddEvent";
+import { Route, Switch } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import PrivateRoute from "./components/PrivateRoute";
-import TestLogin from "./components/TestLogin";
 import Events from "./components/Events";
-import Register from "./components/Register";
 import Login from "./components/Login";
-<<<<<<< HEAD
-import Vendors from "./components/Vendors";
-import AddVendor from "./components/AddVendor";
-// import FormikEventForm from "./components/katrina/EventForm";
-// import Events from "./components/katrina/Events";
-// import Login from "./components/katrina/Login";
-=======
 import AddVendors from "./components/AddVendors";
 import MainEvents from "./components/MainEvents";
 import MainVendors from "./components/MainVendors";
